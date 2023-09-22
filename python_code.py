@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-st.write("Streatlit example of dataframe")
+##st.write("Streatlit example of dataframe")
 ##df = pd.read_excel (".master/deduct_factors.xlsx")
 ##df = pd.DataFrame(
   ## np.random.randn(50, 20),
