@@ -1,22 +1,21 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
+from io import StringIO
 
-# Cache the dataframe so it's only loaded once
-@st.cache_data
-def load_data():
-    return pd.DataFrame(
-        {
-            "first column": [1, 2, 3, 4],
-            "second column": [10, 20, 30, 40],
-        }
-    )
+uploaded_file = st.file_uploader("Choose a file")
+if uploaded_file is not None:
+    # To read file as bytes:
+    bytes_data = uploaded_file.getvalue()
+    st.write(bytes_data)
 
-# Boolean to resize the dataframe, stored as a session state variable
-st.checkbox("Use container width", value=False, key="use_container_width")
+    # To convert to a string based IO:
+    stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
+    st.write(stringio)
 
-df = load_data()
+    # To read file as string:
+    string_data = stringio.read()
+    st.write(string_data)
 
-# Display the dataframe and allow the user to stretch the dataframe
-# across the full width of the container, based on the checkbox value
-st.dataframe(df, use_container_width=st.session_state.use_container_width)
+    # Can be used wherever a "file-like" object is accepted:
+    dataframe = pd.read_csv(uploaded_file)
+    st.write(dataframe)
